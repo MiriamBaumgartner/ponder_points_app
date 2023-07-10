@@ -1,67 +1,86 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({
+    super.key,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> quotes = [
+    '"The only way to achieve the impossible is to believe it is possible."',
+    '"Believe you can and you are halfway there."',
+    '"The only limit to our realization of tomorrow will be our doubts of today." ',
+    '"The future belongs to those who believe in the beauty of their dreams."',
+    '"Dont be afraid to give up the good to go for the great."',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 231, 181, 243),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 231, 181, 243),
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Ponder Points',
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Your daily dose of quotes to ponder',
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                getQuote(),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
             ),
-            const SizedBox(
+            SizedBox(
+              width: 40,
               height: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 400,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 189, 137, 221),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'romatic quote',
-                    textScaleFactor: 1,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ),
-              ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.favorite_border),
+              iconSize: 50,
+              color: Colors.pink,
             ),
           ],
         ),
       ),
     );
+  }
+
+  String getQuote() {
+    final _random = Random();
+    final randomInt = _random.nextInt(quotes.length);
+    print(randomInt);
+    var quote = quotes[randomInt];
+    return quote;
   }
 }
