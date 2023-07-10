@@ -37,11 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Your daily dose of quotes to ponder',
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 400,
