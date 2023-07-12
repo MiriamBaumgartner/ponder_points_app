@@ -24,14 +24,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 231, 181, 243),
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 231, 181, 243),
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Ponder Points',
-        ),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
