@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class QuotesScreen extends StatefulWidget {
   const QuotesScreen({
     super.key,
+    required this.favorites,
   });
+
+  final List<String> favorites;
 
   @override
   State<QuotesScreen> createState() => _QuotesScreenState();
@@ -20,8 +23,19 @@ class _QuotesScreenState extends State<QuotesScreen> {
     '"Dont be afraid to give up the good to go for the great."',
   ];
 
+  String currentQuote = '';
+
+  @override
+  void initState() {
+    currentQuote = getQuote();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(currentQuote);
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 231, 181, 243),
       body: Center(
@@ -31,7 +45,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                getQuote(),
+                currentQuote,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
@@ -41,10 +55,12 @@ class _QuotesScreenState extends State<QuotesScreen> {
               height: 40,
             ),
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.favorite_border),
+              onPressed: () => toggleFavorite(currentQuote),
+              icon: Icon(widget.favorites.contains(currentQuote)
+                  ? Icons.favorite
+                  : Icons.favorite_border),
               iconSize: 50,
-              color: Colors.pink,
+              color: Colors.purple,
             ),
           ],
         ),
@@ -52,10 +68,20 @@ class _QuotesScreenState extends State<QuotesScreen> {
     );
   }
 
+  void toggleFavorite(String currentQuote) {
+    setState(() {
+      if (widget.favorites.contains(currentQuote)) {
+        widget.favorites.remove(currentQuote);
+      } else {
+        widget.favorites.add(currentQuote);
+      }
+    });
+  }
+
   String getQuote() {
     final _random = Random();
     final randomInt = _random.nextInt(quotes.length);
-    print(randomInt);
+
     var quote = quotes[randomInt];
     return quote;
   }

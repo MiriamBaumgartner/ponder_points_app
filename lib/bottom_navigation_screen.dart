@@ -3,7 +3,8 @@ import 'package:ponder_points_app/favorite_screen.dart';
 import 'package:ponder_points_app/quotes_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({super.key});
+  const BottomNavigationScreen(this.favoriteQuotes, {super.key});
+  final List<String> favoriteQuotes;
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -12,15 +13,23 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int selectedTab = 0;
 
-  List pages = [
-    const QuotesScreen(),
-    const FavoriteScreen(),
-  ];
+  List pages = [];
 
   void changeTab(int index) {
     setState(() {
       selectedTab = index;
     });
+  }
+
+  @override
+  void initState() {
+    pages = [
+      QuotesScreen(
+        favorites: widget.favoriteQuotes,
+      ),
+      FavoriteScreen(favorites: widget.favoriteQuotes),
+    ];
+    super.initState();
   }
 
   @override
