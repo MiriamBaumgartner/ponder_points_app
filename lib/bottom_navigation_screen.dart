@@ -24,9 +24,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   void initState() {
     pages = [
-      QuotesScreen(
-        favorites: widget.favoriteQuotes,
-      ),
+      QuotesScreen(favorites: widget.favoriteQuotes),
       FavoriteScreen(favorites: widget.favoriteQuotes),
     ];
     super.initState();
