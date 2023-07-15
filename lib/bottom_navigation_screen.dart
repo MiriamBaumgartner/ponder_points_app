@@ -55,8 +55,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             icon: Icon(Icons.format_quote_outlined),
             label: 'Quote',
           ),
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite')
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite')
         ],
       ),
     );

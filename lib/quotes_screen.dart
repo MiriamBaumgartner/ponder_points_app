@@ -3,18 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class QuotesScreen extends StatefulWidget {
-  const QuotesScreen({
+  QuotesScreen({
     super.key,
     required this.favorites,
   });
 
   final List<String> favorites;
 
-  @override
-  State<QuotesScreen> createState() => _QuotesScreenState();
-}
-
-class _QuotesScreenState extends State<QuotesScreen> {
   List<String> quotes = [
     '"The only way to achieve the impossible is to believe it is possible."',
     '"Believe you can and you are halfway there."',
@@ -23,18 +18,24 @@ class _QuotesScreenState extends State<QuotesScreen> {
     '"Dont be afraid to give up the good to go for the great."',
   ];
 
-  String currentQuote = '';
+  late String currentQuote = getQuote();
 
-  @override
-  void initState() {
-    currentQuote = getQuote();
-    // TODO: implement initState
-    super.initState();
+  String getQuote() {
+    final _random = Random();
+    final randomInt = _random.nextInt(quotes.length);
+
+    var quote = quotes[randomInt];
+    return quote;
   }
 
   @override
+  State<QuotesScreen> createState() => _QuotesScreenState();
+}
+
+class _QuotesScreenState extends State<QuotesScreen> {
+  @override
   Widget build(BuildContext context) {
-    print(currentQuote);
+    print(widget.currentQuote);
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 231, 181, 243),
@@ -45,7 +46,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                currentQuote,
+                widget.currentQuote,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
@@ -55,8 +56,8 @@ class _QuotesScreenState extends State<QuotesScreen> {
               height: 40,
             ),
             IconButton(
-              onPressed: () => toggleFavorite(currentQuote),
-              icon: Icon(widget.favorites.contains(currentQuote)
+              onPressed: () => toggleFavorite(widget.currentQuote),
+              icon: Icon(widget.favorites.contains(widget.currentQuote)
                   ? Icons.favorite
                   : Icons.favorite_border),
               iconSize: 50,
@@ -76,13 +77,5 @@ class _QuotesScreenState extends State<QuotesScreen> {
         widget.favorites.add(currentQuote);
       }
     });
-  }
-
-  String getQuote() {
-    final _random = Random();
-    final randomInt = _random.nextInt(quotes.length);
-
-    var quote = quotes[randomInt];
-    return quote;
   }
 }

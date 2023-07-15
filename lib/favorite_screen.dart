@@ -14,6 +14,10 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
+    if (widget.favorites.isEmpty) {
+      return const Center(child: Text('Your favorites list is empty.'));
+    }
+
     return Scaffold(
       body: ListView.builder(
         itemCount: widget.favorites.length,
