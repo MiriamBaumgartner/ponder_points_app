@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ponder_points_app/models/quote.dart';
+import 'package:ponder_points_app/quotes_data/quotes_data.dart';
 
 class QuotesScreen extends StatefulWidget {
   QuotesScreen({
@@ -8,19 +10,11 @@ class QuotesScreen extends StatefulWidget {
     required this.favorites,
   });
 
-  final List<String> favorites;
+  final List<Quote> favorites;
 
-  List<String> quotes = [
-    '"The only way to achieve the impossible is to believe it is possible."',
-    '"Believe you can and you are halfway there."',
-    '"The only limit to our realization of tomorrow will be our doubts of today." ',
-    '"The future belongs to those who believe in the beauty of their dreams."',
-    '"Dont be afraid to give up the good to go for the great."',
-  ];
+  late Quote currentQuote = getQuote();
 
-  late String currentQuote = getQuote();
-
-  String getQuote() {
+  Quote getQuote() {
     final _random = Random();
     final randomInt = _random.nextInt(quotes.length);
 
@@ -46,10 +40,14 @@ class _QuotesScreenState extends State<QuotesScreen> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                widget.currentQuote,
+                '"${widget.currentQuote.text}"',
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
+            ),
+            Text(
+              '- ' + widget.currentQuote.author,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(
               width: 40,
@@ -69,7 +67,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
     );
   }
 
-  void toggleFavorite(String currentQuote) {
+  void toggleFavorite(Quote currentQuote) {
     setState(() {
       if (widget.favorites.contains(currentQuote)) {
         widget.favorites.remove(currentQuote);

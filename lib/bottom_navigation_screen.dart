@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/favorite_screen.dart';
+import 'package:ponder_points_app/models/quote.dart';
 import 'package:ponder_points_app/quotes_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen(this.favoriteQuotes, {super.key});
-  final List<String> favoriteQuotes;
+  final List<Quote> favoriteQuotes;
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
