@@ -2,15 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/models/quote.dart';
+import 'package:ponder_points_app/quote_provider.dart';
 import 'package:ponder_points_app/quotes_data/quotes_data.dart';
+import 'package:provider/provider.dart';
 
 class QuotesScreen extends StatefulWidget {
   QuotesScreen({
     super.key,
-    required this.favorites,
   });
-
-  final List<Quote> favorites;
 
   late Quote currentQuote = getQuote();
 
@@ -53,27 +52,27 @@ class _QuotesScreenState extends State<QuotesScreen> {
               width: 40,
               height: 40,
             ),
-            IconButton(
-              onPressed: () => toggleFavorite(widget.currentQuote),
-              icon: Icon(widget.favorites.contains(widget.currentQuote)
-                  ? Icons.favorite
-                  : Icons.favorite_border),
-              iconSize: 50,
-              color: Colors.purple,
-            ),
+            Consumer<QuoteProvider>(
+              builder: (context, quoteProvider, child) {
+                return IconButton(
+                  onPressed: () =>
+                      quoteProvider.toggleFavorite(widget.currentQuote),
+                  icon: Icon(
+                      quoteProvider.favoriteQuotes.contains(widget.currentQuote)
+                          ? Icons.favorite
+                          : Icons.favorite_border),
+                  iconSize: 50,
+                  color: Colors.purple,
+                );
+              },
+            )
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
-  }
-
-  void toggleFavorite(Quote currentQuote) {
-    setState(() {
-      if (widget.favorites.contains(currentQuote)) {
-        widget.favorites.remove(currentQuote);
-      } else {
-        widget.favorites.add(currentQuote);
-      }
-    });
   }
 }

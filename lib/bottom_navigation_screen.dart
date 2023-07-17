@@ -4,8 +4,7 @@ import 'package:ponder_points_app/models/quote.dart';
 import 'package:ponder_points_app/quotes_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen(this.favoriteQuotes, {super.key});
-  final List<Quote> favoriteQuotes;
+  const BottomNavigationScreen({super.key});
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -25,8 +24,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   void initState() {
     pages = [
-      QuotesScreen(favorites: widget.favoriteQuotes),
-      FavoriteScreen(favorites: widget.favoriteQuotes),
+      QuotesScreen(),
+      FavoriteScreen(),
     ];
     super.initState();
   }
