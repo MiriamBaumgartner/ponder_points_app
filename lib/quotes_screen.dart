@@ -70,8 +70,11 @@ class _QuotesScreenState extends State<QuotesScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
         onPressed: () {},
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+        ),
       ),
     );
   }
