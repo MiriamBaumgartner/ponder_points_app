@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ponder_points_app/models/quote.dart';
 import 'package:ponder_points_app/quote_provider.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const FavoriteScreen();
 
-  @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
-}
-
-class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Consumer<QuoteProvider>(

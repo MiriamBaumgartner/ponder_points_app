@@ -1,53 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/favorite_screen.dart';
-import 'package:ponder_points_app/models/quote.dart';
 import 'package:ponder_points_app/quotes_screen.dart';
+import 'package:provider/provider.dart';
+import 'change_tab_provider.dart';
 
-class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({super.key});
+class BottomNavigationScreen extends StatelessWidget {
+  BottomNavigationScreen({super.key});
 
-  @override
-  State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
-}
-
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int selectedTab = 0;
-
-  List pages = [];
-
-  void changeTab(int index) {
-    setState(() {
-      selectedTab = index;
-    });
-  }
-
-  @override
-  void initState() {
-    pages = [
-      QuotesScreen(),
-      FavoriteScreen(),
-    ];
-    super.initState();
-  }
+  final List pages = [
+    QuotesScreen(),
+    const FavoriteScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final tabProvider = context.watch<ChangeTab>();
+
     var activeTabTitle = 'Ponder Points ';
-    if (selectedTab == 1) {
+    if (tabProvider.selectedTab == 1) {
       activeTabTitle = 'Your Favorites';
     }
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 231, 181, 243),
+        backgroundColor: const Color.fromARGB(255, 231, 181, 243),
         elevation: 0,
         centerTitle: true,
         title: Text(activeTabTitle),
       ),
-      body: pages[selectedTab],
+      body: pages[tabProvider.selectedTab],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedTab,
-        onTap: (index) => changeTab(index),
+        currentIndex: tabProvider.selectedTab,
+        onTap: (index) => tabProvider.changeTab(index),
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,
         items: const [
