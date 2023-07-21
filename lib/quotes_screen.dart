@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ponder_points_app/primary_button.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,6 @@ class QuotesScreen extends StatelessWidget {
     final quoteProvider = context.watch<QuoteProvider>();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -45,14 +45,14 @@ class QuotesScreen extends StatelessWidget {
               iconSize: 50,
               color: Colors.orange,
             ),
-            SizedBox(
-              width: 30,
+            const SizedBox(
+              height: 20,
             ),
-            ElevatedButton(
-                onPressed: () => quoteProvider.randomQuote(),
-                child: Text('next quote'),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.orange))),
+            PrimaryButton(
+                text: 'Next Quote',
+                onPressed: () {
+                  quoteProvider.randomQuote();
+                }),
           ],
         ),
       ),

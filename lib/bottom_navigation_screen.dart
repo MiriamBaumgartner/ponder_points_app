@@ -22,14 +22,12 @@ class BottomNavigationScreen extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         elevation: 0,
         centerTitle: true,
         title: Text(activeTabTitle),
       ),
       body: pages[tabProvider.selectedTab],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         currentIndex: tabProvider.selectedTab,
         onTap: (index) => tabProvider.changeTab(index),
         selectedItemColor: Colors.orange,

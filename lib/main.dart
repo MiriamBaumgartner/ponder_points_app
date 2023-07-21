@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/change_tab_provider.dart';
+import 'package:ponder_points_app/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
 
@@ -24,6 +25,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: BottomNavigationScreen(),
+      theme: ThemeData.dark(
+        useMaterial3: true,
+      ).copyWith(
+        appBarTheme: AppBarTheme(),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: primaryColor,
+          ),
+        ),
+      ),
     );
   }
 }
