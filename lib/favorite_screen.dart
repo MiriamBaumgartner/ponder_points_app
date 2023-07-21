@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ponder_points_app/quote_provider.dart';
+import 'package:ponder_points_app/provider/quote_provider.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatelessWidget {

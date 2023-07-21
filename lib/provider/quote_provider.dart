@@ -1,9 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:ponder_points_app/quotes_data/quotes_data.dart';
-
-import 'models/quote.dart';
+import '../models/quote.dart';
+import '../quotes_data/quotes_data.dart';
 
 class QuoteProvider extends ChangeNotifier {
   final List<Quote> favoriteQuotes = [];

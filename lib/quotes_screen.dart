@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ponder_points_app/quote_provider.dart';
+import 'package:ponder_points_app/provider/quote_provider.dart';
 import 'package:provider/provider.dart';
 
 class QuotesScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class QuotesScreen extends StatelessWidget {
     final quoteProvider = context.watch<QuoteProvider>();
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 231, 181, 243),
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,18 +43,27 @@ class QuotesScreen extends StatelessWidget {
                   ? Icons.favorite
                   : Icons.favorite_border),
               iconSize: 50,
-              color: Colors.purple,
-            )
+              color: Colors.orange,
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            ElevatedButton(
+                onPressed: () => quoteProvider.randomQuote(),
+                child: Text('next quote'),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.orange))),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
-        onPressed: () => quoteProvider.randomQuote(),
-        child: const Icon(
-          Icons.add,
-        ),
-      ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.purple,
+      //   onPressed: () => quoteProvider.randomQuote(),
+      //   child: const Icon(
+      //     Icons.add,
+      //   ),
+      // ),
     );
   }
 }

@@ -1,20 +1,27 @@
-class Bird {
-  final String color;
+import 'package:flutter/material.dart';
 
-  Bird(this.color) {
+class Bird {
+  final String _color;
+  String get color => _color;
+
+  Bird(this._color) {
     // ignore: avoid_print
-    print('bird erstellt: $color');
+    print('bird erstellt: $_color');
+  }
+
+  String getSecondLetterOfColor() {
+    return _color.characters.elementAt(1);
   }
 
   void sing() {
     // ignore: avoid_print
-    print('$color --- sing sing');
+    print('$_color --- sing sing');
   }
 
   void poo() {
     sing();
     // ignore: avoid_print
-    print('$color ---  poo');
+    print('$_color ---  poo');
   }
 }
 
