@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     birdTest();
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ponder Points',
       home: BottomNavigationScreen(),
       theme: ThemeData.dark(
         useMaterial3: true,
