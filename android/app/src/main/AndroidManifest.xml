@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ponder_points_app">
-   <application
-        android:label="ponder_points_app"
+xmlns:tools="http://schemas.android.com/tools"
+    package="at.souperapps.ponderpoints">
+
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+
+    <application
+        android:label="Ponder Points"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
