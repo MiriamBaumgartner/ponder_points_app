@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    birdTest();
+    // birdTest();
     return MaterialApp(
       title: 'Ponder Points',
       home: BottomNavigationScreen(),

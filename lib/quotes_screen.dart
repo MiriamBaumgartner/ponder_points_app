@@ -1,14 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/primary_button.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
+import 'package:ponder_points_app/quotes_data/quotes_from_internet.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
-class QuotesScreen extends StatelessWidget {
+class QuotesScreen extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   QuotesScreen({
     super.key,
   });
 
+  @override
+  State<QuotesScreen> createState() => _QuotesScreenState();
+}
+
+class _QuotesScreenState extends State<QuotesScreen> {
   @override
   Widget build(BuildContext context) {
     final quoteProvider = context.watch<QuoteProvider>();
@@ -51,19 +60,23 @@ class QuotesScreen extends StatelessWidget {
             PrimaryButton(
                 text: 'Next Quote',
                 onPressed: () {
-                  quoteProvider.randomQuote();
+                  print('calling next quote');
+                  getNextQuote();
+                  // quoteProvider.randomQuote();
                 }),
           ],
         ),
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.purple,
-      //   onPressed: () => quoteProvider.randomQuote(),
-      //   child: const Icon(
-      //     Icons.add,
-      //   ),
-      // ),
     );
+  }
+
+  getNextQuote() async {
+    final response =
+        await http.get(Uri.parse('https://api.quotable.io/random'));
+
+    if (response.statusCode == 200) {
+      final quote = QuoteFromInternet.fromJson(jsonDecode(response.body));
+      print('quotefrominternet: ${quote.content}');
+    }
   }
 }
