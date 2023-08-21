@@ -18,10 +18,24 @@ class QuotesScreen extends StatefulWidget {
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
+  final bool isLoading = false;
+  final nextQuote = QuoteFromInternet.fromJson;
+
+  getNextQuote() async {
+    final response =
+        await http.get(Uri.parse('https://api.quotable.io/random'));
+
+    if (response.statusCode == 200) {
+      final quote = QuoteFromInternet.fromJson(jsonDecode(response.body));
+      print('quotefrominternet: ${quote.content}');
+    } else {
+      CircularProgressIndicator();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final quoteProvider = context.watch<QuoteProvider>();
-
     return Scaffold(
       body: Center(
         child: Column(
@@ -68,15 +82,5 @@ class _QuotesScreenState extends State<QuotesScreen> {
         ),
       ),
     );
-  }
-
-  getNextQuote() async {
-    final response =
-        await http.get(Uri.parse('https://api.quotable.io/random'));
-
-    if (response.statusCode == 200) {
-      final quote = QuoteFromInternet.fromJson(jsonDecode(response.body));
-      print('quotefrominternet: ${quote.content}');
-    }
   }
 }
