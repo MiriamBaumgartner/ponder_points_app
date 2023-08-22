@@ -18,69 +18,80 @@ class QuotesScreen extends StatefulWidget {
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
-  final bool isLoading = false;
-  final nextQuote = QuoteFromInternet.fromJson;
-
-  getNextQuote() async {
-    final response =
-        await http.get(Uri.parse('https://api.quotable.io/random'));
-
-    if (response.statusCode == 200) {
-      final quote = QuoteFromInternet.fromJson(jsonDecode(response.body));
-      print('quotefrominternet: ${quote.content}');
-    } else {
-      CircularProgressIndicator();
-    }
-  }
+  bool isLoading = false;
+  QuoteFromInternet? quoteFromInternet;
 
   @override
   Widget build(BuildContext context) {
     final quoteProvider = context.watch<QuoteProvider>();
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '"${quoteProvider.currentQuote.text}"',
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white, fontSize: 30),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // if (isLoading) CircularProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      quoteFromInternet?.content ?? '-',
+                      // '"${quoteProvider.currentQuote.text}"',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ),
+                  Text(
+                    // ignore: prefer_interpolation_to_compose_strings
+                    '- ' + quoteProvider.currentQuote.author,
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  const SizedBox(
+                    width: 40,
+                    height: 40,
+                  ),
+                  IconButton(
+                    onPressed: () => quoteProvider
+                        .toggleFavorite(quoteProvider.currentQuote),
+                    icon: Icon(quoteProvider.favoriteQuotes
+                            .contains(quoteProvider.currentQuote)
+                        ? Icons.favorite
+                        : Icons.favorite_border),
+                    iconSize: 50,
+                    color: Colors.orange,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  PrimaryButton(
+                      text: 'Next Quote',
+                      onPressed: () {
+                        setState(() {
+                          isLoading = true;
+                          print('isloading: $isLoading');
+                        });
+
+                        print('calling next quote');
+                        getNextQuote();
+
+                        // quoteProvider.randomQuote();
+                      }),
+                ],
               ),
-            ),
-            Text(
-              // ignore: prefer_interpolation_to_compose_strings
-              '- ' + quoteProvider.currentQuote.author,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            const SizedBox(
-              width: 40,
-              height: 40,
-            ),
-            IconButton(
-              onPressed: () =>
-                  quoteProvider.toggleFavorite(quoteProvider.currentQuote),
-              icon: Icon(quoteProvider.favoriteQuotes
-                      .contains(quoteProvider.currentQuote)
-                  ? Icons.favorite
-                  : Icons.favorite_border),
-              iconSize: 50,
-              color: Colors.orange,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            PrimaryButton(
-                text: 'Next Quote',
-                onPressed: () {
-                  print('calling next quote');
-                  getNextQuote();
-                  // quoteProvider.randomQuote();
-                }),
-          ],
-        ),
       ),
     );
+  }
+
+  void getNextQuote() async {
+    final response =
+        await http.get(Uri.parse('https://api.quotable.io/random'));
+
+    if (response.statusCode == 200) {
+      quoteFromInternet = QuoteFromInternet.fromJson(jsonDecode(response.body));
+      // print('quotefrominternet: ${quote.content}');
+    } else {}
+    setState(() {
+      isLoading = false;
+    });
   }
 }
