@@ -42,8 +42,9 @@ class _QuotesScreenState extends State<QuotesScreen> {
                     ),
                   ),
                   Text(
+                    quoteFromInternet?.author ?? '...',
                     // ignore: prefer_interpolation_to_compose_strings
-                    '- ' + quoteProvider.currentQuote.author,
+                    // '- ' + quoteProvider.currentQuote.author,
                     style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   const SizedBox(
