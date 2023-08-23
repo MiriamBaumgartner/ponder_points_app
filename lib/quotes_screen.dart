@@ -18,8 +18,14 @@ class QuotesScreen extends StatefulWidget {
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
-  bool isLoading = false;
+  bool isLoading = true;
   QuoteFromInternet? quoteFromInternet;
+
+  @override
+  void initState() {
+    getNextQuote();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +41,14 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Text(
-                      quoteFromInternet?.content ?? '-',
+                      '"' + (quoteFromInternet?.content ?? '-') + '"',
                       // '"${quoteProvider.currentQuote.text}"',
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.white, fontSize: 30),
                     ),
                   ),
                   Text(
-                    quoteFromInternet?.author ?? '...',
+                    '- ' + (quoteFromInternet?.author ?? '...'),
                     // ignore: prefer_interpolation_to_compose_strings
                     // '- ' + quoteProvider.currentQuote.author,
                     style: const TextStyle(color: Colors.white, fontSize: 18),
