@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ponder_points_app/favorite_screen.dart';
-import 'package:ponder_points_app/quotes_screen.dart';
+import 'package:ponder_points_app/screens/favorite_screen.dart';
+import 'package:ponder_points_app/screens/quotes_screen.dart';
 import 'package:provider/provider.dart';
-import 'change_tab_provider.dart';
+import '../change_tab_provider.dart';
 
 class BottomNavigationScreen extends StatelessWidget {
   BottomNavigationScreen({super.key});

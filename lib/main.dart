@@ -4,8 +4,8 @@ import 'package:ponder_points_app/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
 
-import 'bird_test.dart';
-import 'bottom_navigation_screen.dart';
+import 'bird tets/bird_test.dart';
+import 'screens/bottom_navigation_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(

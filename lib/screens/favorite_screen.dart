@@ -26,8 +26,8 @@ class FavoriteScreen extends StatelessWidget {
                     icon: const Icon(
                       Icons.favorite,
                     )),
-                title: Text(favoriteQuote.text),
-                subtitle: Text(favoriteQuote.author),
+                title: Text(favoriteQuote?.content ?? '-'),
+                subtitle: Text(favoriteQuote?.author ?? '-'),
               ),
             );
           },

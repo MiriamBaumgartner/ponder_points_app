@@ -1,18 +1,16 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../models/quote.dart';
-import '../quotes_data/quotes_data.dart';
+import 'package:ponder_points_app/models/quotes_from_internet.dart';
 
 class QuoteProvider extends ChangeNotifier {
-  final List<Quote> favoriteQuotes = [];
-  Quote currentQuote = quotes.first;
+  final List<QuoteFromInternet?> favoriteQuotes = [];
 
-  void removeFavorite(Quote currentQuote) {
+  void removeFavorite(QuoteFromInternet? currentQuote) {
     favoriteQuotes.remove(currentQuote);
     notifyListeners();
   }
 
-  void toggleFavorite(Quote currentQuote) {
+  void toggleFavorite(QuoteFromInternet? currentQuote) {
     if (favoriteQuotes.contains(currentQuote)) {
       favoriteQuotes.remove(currentQuote);
     } else {
@@ -21,11 +19,11 @@ class QuoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  randomQuote() {
-    final random = Random();
-    final randomInt = random.nextInt(quotes.length);
+  // randomQuote() {
+  //   final random = Random();
+  //   final randomInt = random.nextInt(quotes.length);
 
-    currentQuote = quotes[randomInt];
-    notifyListeners();
-  }
+  //   currentQuote = quotes[randomInt];
+  //   notifyListeners();
+  // }
 }

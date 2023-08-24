@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/primary_button.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
-import 'package:ponder_points_app/quotes_data/quotes_from_internet.dart';
+import 'package:ponder_points_app/models/quotes_from_internet.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,12 +58,12 @@ class _QuotesScreenState extends State<QuotesScreen> {
                     height: 40,
                   ),
                   IconButton(
-                    onPressed: () => quoteProvider
-                        .toggleFavorite(quoteProvider.currentQuote),
-                    icon: Icon(quoteProvider.favoriteQuotes
-                            .contains(quoteProvider.currentQuote)
-                        ? Icons.favorite
-                        : Icons.favorite_border),
+                    onPressed: () =>
+                        quoteProvider.toggleFavorite(quoteFromInternet),
+                    icon: Icon(
+                        quoteProvider.favoriteQuotes.contains(quoteFromInternet)
+                            ? Icons.favorite
+                            : Icons.favorite_border),
                     iconSize: 50,
                     color: Colors.orange,
                   ),
