@@ -4,7 +4,6 @@ import 'package:ponder_points_app/styles.dart';
 import 'package:provider/provider.dart';
 import 'package:ponder_points_app/provider/quote_provider.dart';
 
-import 'bird tets/bird_test.dart';
 import 'screens/bottom_navigation_screen.dart';
 
 void main() {
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(
         useMaterial3: true,
       ).copyWith(
-        appBarTheme: AppBarTheme(),
+        appBarTheme: const AppBarTheme(),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
