@@ -3,19 +3,37 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ponder_points_app/models/quotes_from_internet.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuoteProvider extends ChangeNotifier {
+  final favoritesListkey = 'favoritesListkey';
   final List<QuoteFromInternet?> favoriteQuotes = [];
   bool isLoading = true;
   QuoteFromInternet? quoteFromInternet;
 
   QuoteProvider() {
     getNextQuote();
+    loadFromSharedPreferences();
   }
 
-  void removeFavorite(QuoteFromInternet? currentQuote) {
-    favoriteQuotes.remove(currentQuote);
-    notifyListeners();
+  loadFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<Map<String, dynamic>> quotesFromPref =
+        json.decode(prefs.getString(favoritesListkey) ?? '');
+
+    quotesFromPref.forEach((element) {
+      print(QuoteFromInternet.fromJson(element));
+    });
+
+    // print('$quotesFromPref');
+    // favoriteQuotes.add();
+  }
+
+  saveToSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(favoritesListkey, json.encode(favoriteQuotes));
+    print('funktioniert');
+    loadFromSharedPreferences();
   }
 
   void toggleFavorite(QuoteFromInternet? currentQuote) {
@@ -24,6 +42,7 @@ class QuoteProvider extends ChangeNotifier {
     } else {
       favoriteQuotes.add(currentQuote);
     }
+    saveToSharedPreferences();
     notifyListeners();
   }
 

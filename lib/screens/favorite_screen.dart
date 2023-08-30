@@ -10,19 +10,20 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(body: Consumer<QuoteProvider>(
       builder: (context, quoteProvider, child) {
+        if (quoteProvider.favoriteQuotes.isEmpty) {
+          return const Center(child: Text('Your favorites list is empty.'));
+        }
         return ListView.builder(
           itemCount: quoteProvider.favoriteQuotes.length,
           itemBuilder: (BuildContext context, int index) {
             final favoriteQuote = quoteProvider.favoriteQuotes[index];
-            if (quoteProvider.favoriteQuotes.isEmpty) {
-              return const Center(child: Text('Your favorites list is empty.'));
-            }
+
             return Card(
               child: ListTile(
                 contentPadding: const EdgeInsets.all(14),
                 leading: IconButton(
                     onPressed: () =>
-                        quoteProvider.removeFavorite(favoriteQuote),
+                        quoteProvider.toggleFavorite(favoriteQuote),
                     icon: const Icon(
                       Icons.favorite,
                     )),
