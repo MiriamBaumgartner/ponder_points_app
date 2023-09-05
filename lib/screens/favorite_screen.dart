@@ -13,26 +13,28 @@ class FavoriteScreen extends StatelessWidget {
         if (quoteProvider.favoriteQuotes.isEmpty) {
           return const Center(child: Text('Your favorites list is empty.'));
         }
-        return ListView.builder(
-          itemCount: quoteProvider.favoriteQuotes.length,
-          itemBuilder: (BuildContext context, int index) {
-            final favoriteQuote = quoteProvider.favoriteQuotes[index];
+        return quoteProvider.isLoadingPreferences
+            ? const CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: quoteProvider.favoriteQuotes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final favoriteQuote = quoteProvider.favoriteQuotes[index];
 
-            return Card(
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(14),
-                leading: IconButton(
-                    onPressed: () =>
-                        quoteProvider.toggleFavorite(favoriteQuote),
-                    icon: const Icon(
-                      Icons.favorite,
-                    )),
-                title: Text(favoriteQuote?.content ?? '-'),
-                subtitle: Text(favoriteQuote?.author ?? '-'),
-              ),
-            );
-          },
-        );
+                  return Card(
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(14),
+                      leading: IconButton(
+                          onPressed: () =>
+                              quoteProvider.toggleFavorite(favoriteQuote),
+                          icon: const Icon(
+                            Icons.favorite,
+                          )),
+                      title: Text(favoriteQuote?.content ?? '-'),
+                      subtitle: Text(favoriteQuote?.author ?? '-'),
+                    ),
+                  );
+                },
+              );
       },
     ));
   }

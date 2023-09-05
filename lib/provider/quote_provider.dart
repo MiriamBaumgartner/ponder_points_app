@@ -9,6 +9,7 @@ class QuoteProvider extends ChangeNotifier {
   final favoritesListkey = 'favoritesListkey';
   final List<QuoteFromInternet?> favoriteQuotes = [];
   bool isLoading = true;
+  bool isLoadingPreferences = true;
   QuoteFromInternet? quoteFromInternet;
 
   QuoteProvider() {
@@ -17,23 +18,29 @@ class QuoteProvider extends ChangeNotifier {
   }
 
   loadFromSharedPreferences() async {
+    isLoadingPreferences = true;
     final prefs = await SharedPreferences.getInstance();
-    final List<Map<String, dynamic>> quotesFromPref =
-        json.decode(prefs.getString(favoritesListkey) ?? '');
 
-    quotesFromPref.forEach((element) {
-      print(QuoteFromInternet.fromJson(element));
-    });
+    String? jsonString = prefs.getString(favoritesListkey);
 
-    // print('$quotesFromPref');
-    // favoriteQuotes.add();
+    if (jsonString != null) {
+      List<Map<String, dynamic>> quotesAsJson =
+          List<Map<String, dynamic>>.from(json.decode(jsonString));
+      favoriteQuotes.clear();
+      quotesAsJson.forEach((quoteAsJson) {
+        favoriteQuotes.add(QuoteFromInternet.fromJson(quoteAsJson));
+      });
+    }
+
+    isLoadingPreferences = false;
+
+    notifyListeners();
   }
 
   saveToSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(favoritesListkey, json.encode(favoriteQuotes));
     print('funktioniert');
-    loadFromSharedPreferences();
   }
 
   void toggleFavorite(QuoteFromInternet? currentQuote) {
@@ -54,7 +61,6 @@ class QuoteProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       quoteFromInternet = QuoteFromInternet.fromJson(jsonDecode(response.body));
-      // print('quotefrominternet: ${quote.content}');
     } else {}
 
     isLoading = false;
